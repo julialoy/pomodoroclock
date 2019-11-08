@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Break from './Break';
+import Session from './Session';
+import Timer from './Timer';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const DEFAULT_START_TIME = "25:00"
+
+class App extends Component {
+
+  state = {
+    timeLeft: DEFAULT_START_TIME
+  }
+
+  render() {
+    return (
+      <div id="clock-container">
+        <Break />
+        <Session />
+        <Timer 
+          timeLeft={this.state.timeLeft}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
