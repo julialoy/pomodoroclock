@@ -1,19 +1,44 @@
-body {
+/* body {
   background-color: lightgray;
-}
+  height: 100vh;
+} */
 
 #clock-container {
-  position: absolute;
+  /* position: absolute;
   height: 30rem;
   width: auto;
   margin: 10rem 40rem;
   top: 0;
   bottom: 0;
   left: 0;
-  right: 0;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 10px 5px 5px gray;
+  right: 0; */
+  /* margin-top: 5rem; */
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  /* background-color: white; */
+  /* border-radius: 10px; */
+  /* box-shadow: 10px 5px 5px gray; */
+}
+
+#break-div,
+#session-div {
+  text-align: center;
+  font-weight: bold;
+}
+
+#break-down-arrow-active:hover,
+#break-up-arrow-active:hover,
+#session-down-arrow-active:hover,
+#session-up-arrow-active:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+#break-down-arrow-inactive,
+#break-up-arrow-inactive,
+#session-down-arrow-inactive,
+#session-up-arrow-inactive {
+  color: gray;
 }
 
 #pomodoro {
@@ -23,7 +48,7 @@ body {
   border-radius: 50%;
   height: 200px;
   width: 200px;
-  margin: 5rem;
+  margin-top: 2rem;
   text-align: center;
   font-size: 1.5rem;
   color: white;
@@ -31,4 +56,36 @@ body {
 
 #timer {
   margin-top: 5rem;
+}
+
+@media (min-width: 576px) {
+  #main-container {
+    /* margin: 5rem; */
+    /* background-color: pink; */
+  }
+}
+
+@media (min-width: 768px) {
+  #main-container {
+    /* margin: 5rem; */
+    /* background-color: green; */
+  }
+
+  #clock-container {
+    background-color: white;
+    box-shadow: 10px 5px 5px gray;
+  }
+}
+
+@media (min-width: 992px) {
+  #main-container {
+    /* margin: 15rem 10rem 0 35rem;
+    width: 50rem; */
+    /* background-color: tomato; */
+  }
+
+  #clock-container {
+    background-color: white;
+    box-shadow: 10px 5px 5px gray;
+  }
 }
