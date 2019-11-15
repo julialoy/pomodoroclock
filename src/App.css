@@ -55,7 +55,11 @@
 }
 
 #timer {
-  margin-top: 5rem;
+  margin-top: 3rem;
+}
+
+#timer-controls-div {
+  margin-top: 1rem;
 }
 
 @media (min-width: 576px) {

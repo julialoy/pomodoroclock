@@ -15,20 +15,32 @@ class Session extends Component {
   }
 
   render() {
-    let downArrow = <i onClick={this.decrementSessionLength} className="fas fa-arrow-down" id="session-down-arrow-active"></i>;
-    let upArrow = <i onClick={this.incrementSessionLength} className="fas fa-arrow-up" id="session-up-arrow-active"></i>;
-    if (this.props.timeRunning === false) {
-      downArrow = <i className="fas fa-arrow-down" id="session-down-arrow-inactive"></i>;
-      upArrow = <i className="fas fa-arrow-up" id="session-up-arrow-inactive"></i>
+    let downArrow = "session-down-arrow-active";
+    let upArrow = "session-up-arrow-active";
+    let incFunc = this.incrementSessionLength;
+    let decFunc = this.decrementSessionLength;
+    if (this.props.timeRunning === true) {
+      downArrow = "session-down-arrow-inactive";
+      upArrow = "session-up-arrow-inactive";
+      incFunc = null;
+      decFunc = null;
+    }
+    if (this.props.sessionLength === 60) {
+      decFunc = null;
+      downArrow = "session-down-arrow-inactive";
+    }
+    if (this.props.sessionLength === 3600) {
+      incFunc = null;
+      upArrow = "session-up-arrow-inactive";
     }
     return (
       <div id="session-div">
-        <p id="session-label">Session</p>
-        <p>
-          <span id="session-decrement">{downArrow} </span>
-          <span id="session-length">{ this.props.numToString(this.props.sessionLength) }</span>
-          <span id="session-increment"> {upArrow}</span>
-        </p>
+        <div id="session-label">Session</div>
+        <div>
+          <div onClick={decFunc} id="session-decrement"><i className="fas fa-arrow-down" id={downArrow}></i> </div>
+          <div id="session-length">{ this.props.numToString(this.props.sessionLength) }</div>
+          <div onClick={incFunc} id="session-increment"> <i className="fas fa-arrow-up" id={upArrow}></i></div>
+        </div>
       </div>
     );
   }

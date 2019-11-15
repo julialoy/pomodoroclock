@@ -6,9 +6,10 @@ import Row from 'react-bootstrap/Row';
 import Break from './Break';
 import Session from './Session';
 import Timer from './Timer';
+import TimerControls from './TimerControls';
 
-const DEFAULT_START_TIME = 1500
-const DEFAULT_BREAK = 300
+const DEFAULT_START_TIME = 1500;
+const DEFAULT_BREAK = 300;
 
 class App extends Component {
 
@@ -17,12 +18,48 @@ class App extends Component {
     breakLength: DEFAULT_BREAK,
     timeLeft: DEFAULT_START_TIME,
     sessionOrBreak: "Session",
-    timeRunning: true
+    timeRunning: false
   }
+
+  counterTime = this.state.timeLeft;
+  intervalCode = null;
 
   formatAsString = (time) => {
     let minutes = Math.floor(time / 60).toString();
     return minutes;
+  }
+
+  handleSwitch = () => {
+    let timerState = null;
+    let setTimeLeft = null;
+    if (this.state.sessionOrBreak === "Session") {
+      timerState = "Break";
+      setTimeLeft = this.state.breakLength;
+    } else {
+      timerState = "Session";
+      setTimeLeft = this.state.sessionLength;
+    }
+    this.setState((prevState, props) => ({
+      timeLeft: setTimeLeft,
+      sessionOrBreak: timerState
+    }));
+  }
+
+  decrementTimer = () => {
+    console.log("decrementTimer has been called");
+    if (this.state.timeLeft === 0) {
+      // clearInterval(this.intervalCode);
+      this.handleSwitch();
+    } else {
+      // this.counterTime = this.counterTime - 1;
+      this.setState((prevState, props) => ({
+        timeLeft: prevState.timeLeft - 1
+      }));
+    }
+  }
+
+  handleDecrementTimer = () => {
+    this.intervalCode = setInterval(this.decrementTimer, 1000);
   }
 
   handleBrkLngthChange = (delta) => {
@@ -33,11 +70,42 @@ class App extends Component {
 
   handleSessLngthChange = (delta) => {
     this.setState((prevState, props) => ({
-      sessionLength: prevState.sessionLength + delta
+      sessionLength: prevState.sessionLength + delta,
+      timeLeft: prevState.timeLeft + delta
+    }));
+  }
+
+  handleTimerStartStop = () => {
+    let isRunning = null;
+    if (this.state.timeRunning === true) {
+      isRunning = false;
+      clearInterval(this.intervalCode);
+    } else {
+      isRunning = true;
+    }
+    this.setState((prevState, props) => ({
+      timeRunning: isRunning
+    }));
+    if (isRunning === true) {
+      console.log("DECREASE THE TIMER");
+      this.handleDecrementTimer();
+    }
+  }
+
+  handleTimerResart = () => {
+    this.handleTimerStartStop();
+    this.setState((prevState, props) => ({
+      sessionLength: DEFAULT_START_TIME,
+      breakLength: DEFAULT_BREAK,
+      timeLeft: DEFAULT_START_TIME,
+      sessionOrBreak: "Session",
+      timeRunning: false
     }));
   }
 
   render() {
+    console.log("TIMER IS RUNNING: ", this.state.timeRunning);
+    console.log(this.state.timeLeft);
     return (
       <Container className="min-vh-100 justify-content-center align-items-center" id="main-container">
         <div className="rounded" id="clock-container">
@@ -63,6 +131,13 @@ class App extends Component {
             <Timer 
               timeLeft={this.state.timeLeft}
               sessionOrBreak={this.state.sessionOrBreak}
+            />
+          </Row>
+          <Row className="justify-content-center" id="timer-controls-container">
+            <TimerControls 
+              timeRunning={this.state.timeRunning}
+              timerStartStop={this.handleTimerStartStop}
+              timerRestart={this.handleTimerResart}
             />
           </Row>
         </div>
