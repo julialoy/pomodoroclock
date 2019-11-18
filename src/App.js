@@ -30,6 +30,7 @@ class App extends Component {
   }
 
   handleSwitch = () => {
+    console.log("SWITCHY!");
     let timerState = null;
     let setTimeLeft = null;
     if (this.state.sessionOrBreak === "Session") {
@@ -94,6 +95,7 @@ class App extends Component {
 
   handleTimerResart = () => {
     this.handleTimerStartStop();
+    clearInterval(this.intervalCode);
     this.setState((prevState, props) => ({
       sessionLength: DEFAULT_START_TIME,
       breakLength: DEFAULT_BREAK,
