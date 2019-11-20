@@ -18,16 +18,34 @@ class App extends Component {
     breakLength: DEFAULT_BREAK,
     timeLeft: DEFAULT_START_TIME,
     sessionOrBreak: "Session",
-    timeRunning: false
+    timeRunning: false,
+    audioURL: "https://goo.gl/65cBl1"
   }
 
-  counterTime = this.state.timeLeft;
+  // counterTime = this.state.timeLeft;
   intervalCode = null;
 
   formatAsString = (time) => {
     let minutes = Math.floor(time / 60).toString();
     return minutes;
   }
+
+/*   playBeep = (time) => {
+    const audio = this.refs.beep;
+    console.log(audio);
+    audio.play();
+    // change this back to 0
+    // if (time <= 1) {
+    //   console.log("PLAYING THE BEEP");
+    //   audio.play();
+    // }
+  }
+ */
+  // stopAudio = () => {
+  //   const audio = this.refs.beep;
+  //   audio.pause();
+  //   audio.load();
+  // }
 
   handleSwitch = () => {
     console.log("SWITCHY!");
@@ -47,15 +65,26 @@ class App extends Component {
   }
 
   decrementTimer = () => {
+    // playTimer function is delayed by 1 sec when placed here
     console.log("decrementTimer has been called");
     if (this.state.timeLeft === 0) {
       // clearInterval(this.intervalCode);
+      // console.log("TIME IS ZERO, PLAY SOUND");
+      // this.playBeep();
+      this.audioBeep.play();
       this.handleSwitch();
     } else {
       // this.counterTime = this.counterTime - 1;
+      // if (this.state.timeLeft === 1) {
+      //   this.playBeep();
+      // }
       this.setState((prevState, props) => ({
         timeLeft: prevState.timeLeft - 1
       }));
+      // This placement with this.state.timeleft - 1 seems to give the best result with the sound starting a split second before the timer turns to 0
+      // Does not pass audio tests
+      // Using just this.state.timeLeft here delays sound by a split second at most
+      // this.playBeep(this.state.timeLeft);
     }
   }
 
@@ -94,6 +123,8 @@ class App extends Component {
   }
 
   handleTimerResart = () => {
+    this.audioBeep.pause();
+    this.audioBeep.currentTime = 0;
     this.handleTimerStartStop();
     clearInterval(this.intervalCode);
     this.setState((prevState, props) => ({
@@ -143,6 +174,11 @@ class App extends Component {
             />
           </Row>
         </div>
+        <audio id="beep" preload="auto" 
+          src={this.state.audioURL}
+          ref={(audio) => { this.audioBeep = audio; }} 
+
+        />
       </Container>
     );
   }
