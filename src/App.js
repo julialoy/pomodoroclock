@@ -22,7 +22,6 @@ class App extends Component {
     audioURL: "https://goo.gl/65cBl1"
   }
 
-  // counterTime = this.state.timeLeft;
   intervalCode = null;
 
   formatAsString = (time) => {
@@ -30,25 +29,7 @@ class App extends Component {
     return minutes;
   }
 
-/*   playBeep = (time) => {
-    const audio = this.refs.beep;
-    console.log(audio);
-    audio.play();
-    // change this back to 0
-    // if (time <= 1) {
-    //   console.log("PLAYING THE BEEP");
-    //   audio.play();
-    // }
-  }
- */
-  // stopAudio = () => {
-  //   const audio = this.refs.beep;
-  //   audio.pause();
-  //   audio.load();
-  // }
-
   handleSwitch = () => {
-    console.log("SWITCHY!");
     let timerState = null;
     let setTimeLeft = null;
     if (this.state.sessionOrBreak === "Session") {
@@ -65,26 +46,13 @@ class App extends Component {
   }
 
   decrementTimer = () => {
-    // playTimer function is delayed by 1 sec when placed here
-    console.log("decrementTimer has been called");
     if (this.state.timeLeft === 0) {
-      // clearInterval(this.intervalCode);
-      // console.log("TIME IS ZERO, PLAY SOUND");
-      // this.playBeep();
       this.audioBeep.play();
       this.handleSwitch();
     } else {
-      // this.counterTime = this.counterTime - 1;
-      // if (this.state.timeLeft === 1) {
-      //   this.playBeep();
-      // }
       this.setState((prevState, props) => ({
         timeLeft: prevState.timeLeft - 1
       }));
-      // This placement with this.state.timeleft - 1 seems to give the best result with the sound starting a split second before the timer turns to 0
-      // Does not pass audio tests
-      // Using just this.state.timeLeft here delays sound by a split second at most
-      // this.playBeep(this.state.timeLeft);
     }
   }
 
@@ -117,7 +85,6 @@ class App extends Component {
       timeRunning: isRunning
     }));
     if (isRunning === true) {
-      console.log("DECREASE THE TIMER");
       this.handleDecrementTimer();
     }
   }
@@ -137,8 +104,6 @@ class App extends Component {
   }
 
   render() {
-    console.log("TIMER IS RUNNING: ", this.state.timeRunning);
-    console.log(this.state.timeLeft);
     return (
       <Container className="min-vh-100 justify-content-center align-items-center" id="main-container">
         <div className="rounded" id="clock-container">

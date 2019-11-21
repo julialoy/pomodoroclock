@@ -1,23 +1,16 @@
-/* body {
-  background-color: lightgray;
-  height: 100vh;
-} */
+#main-container {
+  position: relative;
+}
 
 #clock-container {
-  /* position: absolute;
-  height: 30rem;
-  width: auto;
-  margin: 10rem 40rem;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0; */
-  /* margin-top: 5rem; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 45%;
+  width: 50%;
+  margin: -25% 0 0 -25%;
   padding-top: 3rem;
   padding-bottom: 3rem;
-  /* background-color: white; */
-  /* border-radius: 10px; */
-  /* box-shadow: 10px 5px 5px gray; */
 }
 
 #break-div,
@@ -54,6 +47,24 @@
   color: white;
 }
 
+#break-decrement,
+#break-increment,
+#break-length,
+#session-decrement,
+#session-increment,
+#session-length,
+#start_stop,
+#restart {
+  display: inline-block;
+}
+
+#break-length,
+#session-length,
+#restart {
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+
 #timer {
   margin-top: 3rem;
 }
@@ -62,33 +73,35 @@
   margin-top: 1rem;
 }
 
-@media (min-width: 576px) {
-  #main-container {
-    /* margin: 5rem; */
-    /* background-color: pink; */
+@media (min-width: 320px) {
+  #clock-container {
+    top: 30%;
+    left: 50%;
+    height: 45%;
+    width: 50%;
+    margin: -25% 0 0 -25%;
   }
 }
 
 @media (min-width: 768px) {
-  #main-container {
-    /* margin: 5rem; */
-    /* background-color: green; */
-  }
-
   #clock-container {
+    top: 50%;
+    left: 50%;
+    height: 60%;
+    width: 60%;
+    margin: -25% 0 0 -25%;
     background-color: white;
     box-shadow: 10px 5px 5px gray;
   }
 }
 
 @media (min-width: 992px) {
-  #main-container {
-    /* margin: 15rem 10rem 0 35rem;
-    width: 50rem; */
-    /* background-color: tomato; */
-  }
-
   #clock-container {
+    top: 50%;
+    left: 50%;
+    height: 45%;
+    width: 50%;
+    margin: -25% 0 0 -25%;
     background-color: white;
     box-shadow: 10px 5px 5px gray;
   }
